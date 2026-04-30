@@ -1,13 +1,29 @@
 import Link from "next/link";
 import { getContatos } from "@/lib/contatos";
+import { Contato } from "@/types/contato";
 import ContatoTable from "@/components/contatos/ContatoTable";
+import ErrorState from "@/components/ui/ErrorState";
 
 interface SearchParams {
   search?: string;
 }
 
 export default async function ContatosPage({ searchParams }: { searchParams: SearchParams }) {
-  const allContatos = await getContatos();
+  let allContatos: Contato[];
+  try {
+    allContatos = await getContatos();
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return (
+      <div className="max-w-2xl mx-auto py-8">
+        <ErrorState
+          message={message}
+          hint="Verifique se a tabela 'contatos' existe no Supabase e se o RLS está configurado para permitir acesso anônimo."
+        />
+      </div>
+    );
+  }
+
   const search = searchParams.search?.toLowerCase() ?? "";
 
   const contatos = search

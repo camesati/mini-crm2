@@ -22,7 +22,10 @@ export async function getContatos(): Promise<Contato[]> {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[getContatos] Supabase error:", error);
+    throw new Error(`Falha ao buscar contatos: ${error.message}`);
+  }
   return (data ?? []).map(mapRow);
 }
 
@@ -33,6 +36,9 @@ export async function getContatoById(id: string): Promise<Contato | null> {
     .eq("id", id)
     .single();
 
-  if (error) return null;
+  if (error) {
+    console.error("[getContatoById] Supabase error:", error);
+    return null;
+  }
   return mapRow(data);
 }

@@ -22,7 +22,10 @@ export async function getLeads(): Promise<Lead[]> {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("[getLeads] Supabase error:", error);
+    throw new Error(`Falha ao buscar leads: ${error.message}`);
+  }
   return (data ?? []).map(mapRow);
 }
 
@@ -33,6 +36,9 @@ export async function getLeadById(id: string): Promise<Lead | null> {
     .eq("id", id)
     .single();
 
-  if (error) return null;
+  if (error) {
+    console.error("[getLeadById] Supabase error:", error);
+    return null;
+  }
   return mapRow(data);
 }

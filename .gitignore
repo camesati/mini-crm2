@@ -26,6 +26,10 @@ yarn-error.log*
 # env files — nunca commitar arquivos com chaves reais
 .env
 .env*.local
+Variaveis.txt
+
+# Claude Code metadata
+.claude/
 
 # vercel
 .vercel

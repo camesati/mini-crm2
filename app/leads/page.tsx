@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { getLeads } from "@/lib/data";
 import { ALL_STATUSES, STATUS_LABELS, LeadStatus } from "@/types/lead";
+import { Lead } from "@/types/lead";
 import LeadTable from "@/components/leads/LeadTable";
+import ErrorState from "@/components/ui/ErrorState";
 
 interface SearchParams {
   search?: string;
@@ -9,7 +11,21 @@ interface SearchParams {
 }
 
 export default async function LeadsPage({ searchParams }: { searchParams: SearchParams }) {
-  const allLeads = await getLeads();
+  let allLeads: Lead[];
+  try {
+    allLeads = await getLeads();
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return (
+      <div className="max-w-2xl mx-auto py-8">
+        <ErrorState
+          message={message}
+          hint="Verifique se a tabela 'leads' existe no Supabase e se o RLS está configurado para permitir acesso anônimo."
+        />
+      </div>
+    );
+  }
+
   const search = searchParams.search?.toLowerCase() ?? "";
   const statusFilter = searchParams.status as LeadStatus | undefined;
 

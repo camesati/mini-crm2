@@ -8,6 +8,7 @@ import {
   CONTATO_STATUS_LABELS,
   CONTATO_STATUS_COLORS,
 } from "@/types/contato";
+import ErrorState from "@/components/ui/ErrorState";
 
 interface SearchParams {
   search?: string;
@@ -172,7 +173,20 @@ function LeadRow({ c }: { c: Contato }) {
 }
 
 export default async function HomePage({ searchParams }: { searchParams: SearchParams }) {
-  const allContatos = await getContatos();
+  let allContatos: Contato[];
+  try {
+    allContatos = await getContatos();
+  } catch (e) {
+    const message = e instanceof Error ? e.message : String(e);
+    return (
+      <div className="max-w-2xl mx-auto py-8">
+        <ErrorState
+          message={message}
+          hint="Verifique se a tabela 'contatos' existe no Supabase, se o RLS está desabilitado (ou tem políticas para anon), e se as variáveis NEXT_PUBLIC_SUPABASE_URL/ANON_KEY estão configuradas corretamente."
+        />
+      </div>
+    );
+  }
 
   const search = searchParams.search?.toLowerCase() ?? "";
   const statusFilter = searchParams.status as ContatoStatus | undefined;
