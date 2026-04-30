@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { Contato, ContatoStatus } from "@/types/contato";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRow(row: any): Contato {
   return {
     id: row.id,

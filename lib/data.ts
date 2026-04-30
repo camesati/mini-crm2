@@ -2,7 +2,6 @@ import { supabase } from "@/lib/supabase";
 import { Lead } from "@/types/lead";
 
 // Supabase returns snake_case columns; map to camelCase Lead type
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapRow(row: any): Lead {
   return {
     id: row.id,
