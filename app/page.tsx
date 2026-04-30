@@ -14,8 +14,6 @@ interface SearchParams {
   status?: string;
 }
 
-// ─── Helpers ────────────────────────────────────────────
-
 function initials(name: string) {
   return name
     .split(" ")
@@ -40,8 +38,6 @@ function avatarColor(id: string) {
   const sum = id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
   return AVATAR_COLORS[sum % AVATAR_COLORS.length];
 }
-
-// ─── Sub-components ──────────────────────────────────────
 
 function StatusPill({
   status,
@@ -87,9 +83,10 @@ function StatusBadge({ status }: { status: ContatoStatus }) {
 }
 
 function LeadRow({ c }: { c: Contato }) {
+  const deleteAction = deleteContato.bind(null, c.id);
+
   return (
     <tr className="group hover:bg-gray-50 transition-colors">
-      {/* Contato */}
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
           <div
@@ -106,14 +103,12 @@ function LeadRow({ c }: { c: Contato }) {
         </div>
       </td>
 
-      {/* Empresa */}
       <td className="px-6 py-4">
         <p className="text-sm text-gray-700 truncate max-w-[160px]">
           {c.company || <span className="text-gray-300">—</span>}
         </p>
       </td>
 
-      {/* Contato */}
       <td className="px-6 py-4">
         <div className="space-y-1">
           {c.email ? (
@@ -144,12 +139,10 @@ function LeadRow({ c }: { c: Contato }) {
         </div>
       </td>
 
-      {/* Status */}
       <td className="px-6 py-4">
         <StatusBadge status={c.status} />
       </td>
 
-      {/* Ações */}
       <td className="px-6 py-4">
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Link
@@ -161,12 +154,7 @@ function LeadRow({ c }: { c: Contato }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
           </Link>
-          <form
-            action={async () => {
-              "use server";
-              await deleteContato(c.id);
-            }}
-          >
+          <form action={deleteAction}>
             <button
               type="submit"
               className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
@@ -183,8 +171,6 @@ function LeadRow({ c }: { c: Contato }) {
   );
 }
 
-// ─── Page ────────────────────────────────────────────────
-
 export default async function HomePage({ searchParams }: { searchParams: SearchParams }) {
   const allContatos = await getContatos();
 
@@ -198,7 +184,6 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
       c.email.toLowerCase().includes(search) ||
       c.company.toLowerCase().includes(search) ||
       c.position.toLowerCase().includes(search);
-
     const matchStatus = !statusFilter || c.status === statusFilter;
     return matchSearch && matchStatus;
   });
@@ -210,7 +195,6 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
@@ -229,38 +213,18 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
         </Link>
       </div>
 
-      {/* Filtros */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
-        {/* Pills de status */}
         <div className="flex flex-wrap gap-2">
-          <StatusPill
-            status="todos"
-            active={!statusFilter}
-            count={allContatos.length}
-          />
+          <StatusPill status="todos" active={!statusFilter} count={allContatos.length} />
           {ALL_CONTATO_STATUSES.map((s) => (
-            <StatusPill
-              key={s}
-              status={s}
-              active={statusFilter === s}
-              count={countByStatus[s]}
-            />
+            <StatusPill key={s} status={s} active={statusFilter === s} count={countByStatus[s]} />
           ))}
         </div>
 
-        {/* Busca */}
         <form method="GET" className="ml-auto flex items-center gap-2">
-          {statusFilter && (
-            <input type="hidden" name="status" value={statusFilter} />
-          )}
+          {statusFilter && <input type="hidden" name="status" value={statusFilter} />}
           <div className="relative">
-            <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
             <input
@@ -272,17 +236,13 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
             />
           </div>
           {search && (
-            <Link
-              href={statusFilter ? `/?status=${statusFilter}` : "/"}
-              className="text-xs text-gray-500 hover:text-gray-800 transition-colors"
-            >
+            <Link href={statusFilter ? `/?status=${statusFilter}` : "/"} className="text-xs text-gray-500 hover:text-gray-800 transition-colors">
               Limpar
             </Link>
           )}
         </form>
       </div>
 
-      {/* Tabela */}
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
         {filtered.length === 0 ? (
           <div className="py-20 text-center">
@@ -293,15 +253,10 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
             </div>
             <p className="text-sm font-medium text-gray-700">Nenhum contato encontrado</p>
             <p className="text-xs text-gray-400 mt-1">
-              {search || statusFilter
-                ? "Tente ajustar os filtros."
-                : "Comece criando o primeiro contato."}
+              {search || statusFilter ? "Tente ajustar os filtros." : "Comece criando o primeiro contato."}
             </p>
             {!search && !statusFilter && (
-              <Link
-                href="/contatos/new"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline"
-              >
+              <Link href="/contatos/new" className="mt-4 inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline">
                 Criar primeiro contato
               </Link>
             )}
@@ -310,18 +265,10 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
           <table className="min-w-full">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Contato
-                </th>
-                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Empresa
-                </th>
-                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Contato
-                </th>
-                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                  Status
-                </th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Contato</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Empresa</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Info de contato</th>
+                <th className="px-6 py-3.5 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3.5" />
               </tr>
             </thead>
