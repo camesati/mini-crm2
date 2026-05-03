@@ -21,7 +21,7 @@ export const STATUS_LABELS: Record<LeadStatus, string> = {
 };
 
 export const STATUS_COLORS: Record<LeadStatus, string> = {
-  novo: "bg-blue-100 text-blue-800",
+  novo: "bg-brand-blue/10 text-brand-blue",
   contatado: "bg-yellow-100 text-yellow-800",
   qualificado: "bg-purple-100 text-purple-800",
   fechado: "bg-green-100 text-green-800",

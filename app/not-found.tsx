@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className="text-gray-500 mt-2 text-sm">O recurso que você procura não existe.</p>
       <Link
         href="/"
-        className="mt-6 inline-flex items-center gap-2 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        className="mt-6 inline-flex items-center gap-2 bg-brand-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-brand-blue-dark transition-colors"
       >
         Ir para o Dashboard
       </Link>

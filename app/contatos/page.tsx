@@ -47,7 +47,7 @@ export default async function ContatosPage({ searchParams }: { searchParams: Sea
         </div>
         <Link
           href="/contatos/new"
-          className="inline-flex items-center gap-2 bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center gap-2 bg-brand-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-brand-blue-dark transition-colors"
         >
           + Novo Contato
         </Link>
@@ -59,11 +59,11 @@ export default async function ContatosPage({ searchParams }: { searchParams: Sea
           name="search"
           defaultValue={search}
           placeholder="Buscar por nome, e-mail, empresa ou cargo..."
-          className="flex-1 min-w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="flex-1 min-w-64 rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
         />
         <button
           type="submit"
-          className="px-4 py-2 rounded-lg bg-gray-800 text-white text-sm font-medium hover:bg-gray-700 transition-colors"
+          className="px-4 py-2 rounded-lg bg-brand-blue text-white text-sm font-medium hover:bg-brand-blue-dark transition-colors"
         >
           Buscar
         </button>

@@ -64,7 +64,7 @@ export default function LeadForm({ action, defaultValues = {} }: LeadFormProps) 
           name="status"
           defaultValue={defaultValues.status ?? "novo"}
           required
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent"
         >
           {ALL_STATUSES.map((s) => (
             <option key={s} value={s}>
@@ -84,7 +84,7 @@ export default function LeadForm({ action, defaultValues = {} }: LeadFormProps) 
           rows={3}
           placeholder="Informações adicionais sobre o lead..."
           defaultValue={defaultValues.notes ?? ""}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent resize-none"
         />
       </div>
 

@@ -6,7 +6,7 @@ export default function NewLeadPage() {
   return (
     <div>
       <div className="mb-6">
-        <Link href="/leads" className="text-sm text-blue-600 hover:underline">
+        <Link href="/leads" className="text-sm text-brand-pink hover:underline">
           ← Voltar para Leads
         </Link>
         <h1 className="text-2xl font-bold text-gray-900 mt-2">Novo Lead</h1>

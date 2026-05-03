@@ -17,7 +17,7 @@ export default async function EditContatoPage({ params }: EditContatoPageProps) 
   return (
     <div>
       <div className="mb-6">
-        <Link href="/contatos" className="text-sm text-blue-600 hover:underline">
+        <Link href="/contatos" className="text-sm text-brand-pink hover:underline">
           ← Voltar para Contatos
         </Link>
         <h1 className="text-2xl font-bold text-gray-900 mt-2">Editar Contato</h1>

@@ -9,7 +9,7 @@ export const CONTATO_STATUS_LABELS: Record<ContatoStatus, string> = {
 };
 
 export const CONTATO_STATUS_COLORS: Record<ContatoStatus, string> = {
-  novo: "bg-blue-100 text-blue-700",
+  novo: "bg-brand-blue/10 text-brand-blue",
   em_contato: "bg-amber-100 text-amber-700",
   fechado: "bg-green-100 text-green-700",
 };

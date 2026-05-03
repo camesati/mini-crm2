@@ -10,7 +10,7 @@ interface ContatoFormProps {
 }
 
 const STATUS_DOT: Record<string, string> = {
-  novo: "bg-blue-500",
+  novo: "bg-brand-blue",
   em_contato: "bg-amber-500",
   fechado: "bg-green-500",
 };
@@ -36,7 +36,7 @@ function Field({
 }
 
 const inputCls =
-  "w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+  "w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-brand-blue focus:border-transparent";
 
 function SubmitButton({ isEdit }: { isEdit: boolean }) {
   const { pending } = useFormStatus();
@@ -44,7 +44,7 @@ function SubmitButton({ isEdit }: { isEdit: boolean }) {
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex items-center gap-2 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      className="inline-flex items-center gap-2 bg-brand-blue text-white text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-brand-blue-dark transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {pending ? (
         <>
