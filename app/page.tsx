@@ -1,7 +1,7 @@
 import Link from "next/link";
 import SuccessBanner from "@/components/ui/SuccessBanner";
+import ContatoRowActions from "@/components/contatos/ContatoRowActions";
 import { getContatos } from "@/lib/contatos";
-import { deleteContato } from "@/lib/contatos-actions";
 import {
   Contato,
   ContatoStatus,
@@ -85,9 +85,7 @@ function StatusBadge({ status }: { status: ContatoStatus }) {
   );
 }
 
-function LeadRow({ c }: { c: Contato }) {
-  const deleteAction = deleteContato.bind(null, c.id);
-
+function ContatoRow({ c }: { c: Contato }) {
   return (
     <tr className="group hover:bg-gray-50 transition-colors">
       <td className="px-6 py-4">
@@ -147,28 +145,7 @@ function LeadRow({ c }: { c: Contato }) {
       </td>
 
       <td className="px-6 py-4">
-        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Link
-            href={`/contatos/${c.id}/edit`}
-            className="p-1.5 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
-            title="Editar"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </Link>
-          <form action={deleteAction}>
-            <button
-              type="submit"
-              className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-              title="Excluir"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
-          </form>
-        </div>
+        <ContatoRowActions id={c.id} name={c.name} />
       </td>
     </tr>
   );
@@ -291,7 +268,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map((c) => (
-                <LeadRow key={c.id} c={c} />
+                <ContatoRow key={c.id} c={c} />
               ))}
             </tbody>
           </table>
