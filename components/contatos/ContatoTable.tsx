@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Contato } from "@/types/contato";
+import { Contato, CONTATO_STATUS_LABELS, CONTATO_STATUS_COLORS } from "@/types/contato";
 import { formatDate } from "@/lib/utils";
 import { deleteContato } from "@/lib/contatos-actions";
 import Button from "@/components/ui/Button";
@@ -22,7 +22,7 @@ export default function ContatoTable({ contatos }: { contatos: Contato[] }) {
       <table className="min-w-full divide-y divide-gray-200 text-sm">
         <thead className="bg-gray-50">
           <tr>
-            {["Nome", "Cargo", "Empresa", "E-mail", "Telefone", "Criado em", "Ações"].map(
+            {["Nome", "Cargo", "Empresa", "E-mail", "Telefone", "Status", "Criado em", "Ações"].map(
               (h) => (
                 <th
                   key={h}
@@ -49,6 +49,11 @@ export default function ContatoTable({ contatos }: { contatos: Contato[] }) {
               <td className="px-4 py-3 text-gray-600">{c.email || "—"}</td>
               <td className="px-4 py-3 text-gray-600 whitespace-nowrap">
                 {c.phone || "—"}
+              </td>
+              <td className="px-4 py-3">
+                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${CONTATO_STATUS_COLORS[c.status]}`}>
+                  {CONTATO_STATUS_LABELS[c.status]}
+                </span>
               </td>
               <td className="px-4 py-3 text-gray-500 whitespace-nowrap">
                 {formatDate(c.createdAt)}

@@ -27,6 +27,7 @@ yarn-error.log*
 .env
 .env*.local
 Variaveis.txt
+.mcp.json
 
 # Claude Code metadata
 .claude/
@@ -37,3 +38,5 @@ Variaveis.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+CLAUDE.local.md
+.claude/settings.local.json
