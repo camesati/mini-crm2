@@ -154,7 +154,7 @@ Convenção de commits: `feat(escopo): mensagem curta` ([Conventional Commits](h
 ## Próximos passos
 
 - [ ] Autenticação via Supabase Auth + reabilitação do RLS
-- [ ] Feedback visual após exclusão de contato
+- [x] Feedback visual após exclusão de contato (dialog de confirmação + SuccessBanner)
 - [ ] Paginação na listagem (atualmente carrega todos os registros)
 - [ ] Testes automatizados (nenhum configurado atualmente)
 

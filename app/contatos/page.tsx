@@ -18,7 +18,7 @@ export default async function ContatosPage({ searchParams }: { searchParams: Sea
       <div className="max-w-2xl mx-auto py-8">
         <ErrorState
           message={message}
-          hint="Verifique se a tabela 'contatos' existe no Supabase e se o RLS está configurado para permitir acesso anônimo."
+          hint="Verifique se a tabela 'contatos' existe no Supabase, se o RLS está desabilitado (migration_disable_rls_v1.sql), e se NEXT_PUBLIC_SUPABASE_URL/ANON_KEY estão configurados."
         />
       </div>
     );

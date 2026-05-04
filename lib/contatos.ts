@@ -1,7 +1,20 @@
 import { supabase } from "@/lib/supabase";
 import { Contato, ContatoStatus } from "@/types/contato";
 
-function mapRow(row: any): Contato {
+interface RawContatoRow {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  company: string | null;
+  position: string | null;
+  status: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+function mapRow(row: RawContatoRow): Contato {
   return {
     id: row.id,
     name: row.name,
