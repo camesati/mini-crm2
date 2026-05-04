@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Contato, CONTATO_STATUS_LABELS, CONTATO_STATUS_COLORS } from "@/types/contato";
 import { formatDate } from "@/lib/utils";
@@ -7,6 +8,8 @@ import { deleteContato } from "@/lib/contatos-actions";
 import Button from "@/components/ui/Button";
 
 export default function ContatoTable({ contatos }: { contatos: Contato[] }) {
+  const [confirming, setConfirming] = useState<string | null>(null);
+
   if (contatos.length === 0) {
     return (
       <div className="text-center py-16 text-gray-500">
@@ -65,17 +68,27 @@ export default function ContatoTable({ contatos }: { contatos: Contato[] }) {
                       Editar
                     </Button>
                   </Link>
-                  <form
-                    action={async () => {
-                      if (confirm(`Excluir "${c.name}"?`)) {
-                        await deleteContato(c.id);
-                      }
-                    }}
-                  >
-                    <Button variant="danger" size="sm" type="submit">
+                  {confirming === c.id ? (
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs text-red-500 font-medium whitespace-nowrap">Excluir?</span>
+                      <button
+                        onClick={async () => { await deleteContato(c.id); }}
+                        className="text-xs font-medium text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded transition-colors"
+                      >
+                        Sim
+                      </button>
+                      <button
+                        onClick={() => setConfirming(null)}
+                        className="text-xs font-medium text-gray-500 hover:text-gray-700 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
+                      >
+                        Não
+                      </button>
+                    </div>
+                  ) : (
+                    <Button variant="danger" size="sm" onClick={() => setConfirming(c.id)}>
                       Excluir
                     </Button>
-                  </form>
+                  )}
                 </div>
               </td>
             </tr>
