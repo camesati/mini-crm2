@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 const MESSAGES: Record<string, string> = {
   contato_criado: "Contato criado com sucesso.",
   contato_atualizado: "Contato atualizado com sucesso.",
-  lead_criado: "Lead criado com sucesso.",
-  lead_atualizado: "Lead atualizado com sucesso.",
 };
 
 export default function SuccessBanner({ code }: { code: string }) {

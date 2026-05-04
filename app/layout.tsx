@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Mini CRM — Camesa",
-  description: "Gestão simples de leads",
+  description: "Gestão simples de contatos",
 };
 
 export default function RootLayout({

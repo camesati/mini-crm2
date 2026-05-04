@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: "📊" },
-  { href: "/leads", label: "Leads", icon: "👥" },
-  { href: "/contatos", label: "Contatos", icon: "📋" },
+  { href: "/contatos", label: "Contatos", icon: "👥" },
 ];
 
 export default function Sidebar() {
@@ -16,7 +15,7 @@ export default function Sidebar() {
     <aside className="w-56 min-h-screen bg-brand-blue text-white flex flex-col">
       <div className="px-6 py-5 border-b border-brand-blue-dark">
         <span className="text-lg font-bold tracking-tight">Mini CRM</span>
-        <p className="text-xs text-white/60 mt-0.5">Gestão de Leads</p>
+        <p className="text-xs text-white/60 mt-0.5">Gestão de Contatos</p>
       </div>
       <nav className="flex-1 px-3 py-4 space-y-1">
         {navItems.map(({ href, label, icon }) => {

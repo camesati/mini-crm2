@@ -214,7 +214,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
       {searchParams.success && <SuccessBanner code={searchParams.success} />}
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Contatos</h1>
           <p className="text-sm text-gray-400 mt-1">
             {allContatos.length} contato{allContatos.length !== 1 ? "s" : ""} cadastrado{allContatos.length !== 1 ? "s" : ""}
           </p>

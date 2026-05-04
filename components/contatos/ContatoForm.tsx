@@ -57,7 +57,7 @@ function SubmitButton({ isEdit }: { isEdit: boolean }) {
       ) : isEdit ? (
         "Salvar alterações"
       ) : (
-        "Adicionar lead"
+        "Adicionar contato"
       )}
     </button>
   );
@@ -174,7 +174,7 @@ export default function ContatoForm({ action, defaultValues = {} }: ContatoFormP
         <textarea
           name="notes"
           rows={4}
-          placeholder="Observações sobre o lead, histórico de conversas, próximos passos..."
+          placeholder="Observações sobre o contato, histórico de conversas, próximos passos..."
           defaultValue={defaultValues.notes ?? ""}
           className={`${inputCls} resize-none`}
         />
