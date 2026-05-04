@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SuccessBanner from "@/components/ui/SuccessBanner";
 import { getContatos } from "@/lib/contatos";
 import { deleteContato } from "@/lib/contatos-actions";
 import {
@@ -13,6 +14,7 @@ import ErrorState from "@/components/ui/ErrorState";
 interface SearchParams {
   search?: string;
   status?: string;
+  success?: string;
 }
 
 function initials(name: string) {
@@ -209,6 +211,7 @@ export default async function HomePage({ searchParams }: { searchParams: SearchP
 
   return (
     <div className="max-w-6xl mx-auto">
+      {searchParams.success && <SuccessBanner code={searchParams.success} />}
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Leads</h1>

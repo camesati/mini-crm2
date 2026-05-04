@@ -42,7 +42,7 @@ export async function createLead(formData: FormData) {
 
   revalidatePath("/leads");
   revalidatePath("/");
-  redirect("/leads");
+  redirect("/leads?success=lead_criado");
 }
 
 export async function updateLead(id: string, formData: FormData) {
@@ -67,7 +67,7 @@ export async function updateLead(id: string, formData: FormData) {
 
   revalidatePath("/leads");
   revalidatePath("/");
-  redirect("/leads");
+  redirect("/leads?success=lead_atualizado");
 }
 
 export async function deleteLead(id: string) {

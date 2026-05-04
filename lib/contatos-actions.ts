@@ -32,7 +32,7 @@ export async function createContato(formData: FormData) {
   if (dbError) throw new Error(dbError.message);
 
   revalidatePath("/");
-  redirect("/");
+  redirect("/?success=contato_criado");
 }
 
 export async function updateContato(id: string, formData: FormData) {
@@ -47,7 +47,7 @@ export async function updateContato(id: string, formData: FormData) {
   if (dbError) throw new Error(dbError.message);
 
   revalidatePath("/");
-  redirect("/");
+  redirect("/?success=contato_atualizado");
 }
 
 export async function deleteContato(id: string) {

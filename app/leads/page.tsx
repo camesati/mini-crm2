@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SuccessBanner from "@/components/ui/SuccessBanner";
 import { getLeads } from "@/lib/data";
 import { ALL_STATUSES, STATUS_LABELS, LeadStatus } from "@/types/lead";
 import { Lead } from "@/types/lead";
@@ -8,6 +9,7 @@ import ErrorState from "@/components/ui/ErrorState";
 interface SearchParams {
   search?: string;
   status?: string;
+  success?: string;
 }
 
 export default async function LeadsPage({ searchParams }: { searchParams: SearchParams }) {
@@ -42,6 +44,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Search
 
   return (
     <div>
+      {searchParams.success && <SuccessBanner code={searchParams.success} />}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Leads</h1>
