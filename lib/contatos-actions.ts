@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { supabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase-server";
 import { ALL_CONTATO_STATUSES, ContatoStatus } from "@/types/contato";
 
 function parseFormData(formData: FormData) {
@@ -28,7 +28,7 @@ export async function createContato(formData: FormData) {
   const error = validate(fields);
   if (error) throw new Error(error);
 
-  const { error: dbError } = await supabase.from("contatos").insert(fields);
+  const { error: dbError } = await supabaseServer.from("contatos").insert(fields);
   if (dbError) throw new Error(dbError.message);
 
   revalidatePath("/");
@@ -40,7 +40,7 @@ export async function updateContato(id: string, formData: FormData) {
   const error = validate(fields);
   if (error) throw new Error(error);
 
-  const { error: dbError } = await supabase
+  const { error: dbError } = await supabaseServer
     .from("contatos")
     .update({ ...fields, updated_at: new Date().toISOString() })
     .eq("id", id);
@@ -51,7 +51,7 @@ export async function updateContato(id: string, formData: FormData) {
 }
 
 export async function deleteContato(id: string) {
-  const { error } = await supabase.from("contatos").delete().eq("id", id);
+  const { error } = await supabaseServer.from("contatos").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/");
 }

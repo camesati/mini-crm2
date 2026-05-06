@@ -99,7 +99,9 @@ Acesse em [http://localhost:3000](http://localhost:3000).
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API → Project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Project Settings → API → anon public |
 
-> `SUPABASE_SERVICE_ROLE_KEY` está no `.env.example` mas não é usado no código atual.
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project Settings → API → service_role (secret) |
+
+> `SUPABASE_SERVICE_ROLE_KEY` **não** tem prefixo `NEXT_PUBLIC_` — nunca é exposta ao browser. Usada exclusivamente nas Server Actions para operações de escrita.
 
 ---
 
@@ -112,7 +114,8 @@ Execute os scripts abaixo **em ordem** no SQL Editor do Supabase:
 1. `supabase/schema_contatos.sql` — cria a tabela `contatos`
 2. `supabase/migration_contatos_add_status.sql` — adiciona coluna `status`
 3. `supabase/migration_contatos_status_v2.sql` — simplifica o enum de status
-4. `supabase/migration_disable_rls_v1.sql` — desabilita RLS (necessário para v1)
+4. `supabase/migration_disable_rls_v1.sql` — desabilita RLS (v1 sem auth)
+5. `supabase/migration_enable_rls_v2.sql` — habilita RLS com leitura pública (v2)
 
 ### Schema resultante
 
@@ -131,7 +134,14 @@ Execute os scripts abaixo **em ordem** no SQL Editor do Supabase:
 
 ### RLS
 
-**RLS está desabilitada na v1.** Qualquer pessoa com a `anon key` pode ler e modificar todos os registros. Isso é aceitável para uso educacional sem usuários reais. Para produção, reabilitar com políticas adequadas após implementar autenticação.
+**RLS habilitada na v2** com política de leitura pública. A `anon key` (exposta no browser) permite apenas `SELECT`. Operações de escrita (`INSERT`, `UPDATE`, `DELETE`) exigem a `service_role key`, usada exclusivamente nas Server Actions do Next.js — nunca enviada ao browser.
+
+| Chave | Permissão no banco | Onde é usada |
+| --- | --- | --- |
+| `anon key` | SELECT | Server Components (leitura), browser |
+| `service_role key` | tudo (bypassa RLS) | Server Actions apenas |
+
+Para produção com usuários reais, o próximo passo é adicionar autenticação via Supabase Auth e trocar as políticas para `auth.uid() = user_id`.
 
 ---
 
