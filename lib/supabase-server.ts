@@ -1,8 +1,13 @@
-// Cliente com service_role key — usar APENAS em Server Components e Server Actions.
+// Cliente com service_role key — usar APENAS em Server Actions.
 // Nunca importar em Client Components: a chave não tem prefixo NEXT_PUBLIC_ por segurança.
+// Inicialização lazy: o cliente só é criado na primeira chamada, não no carregamento do módulo.
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-function createServerClient(): SupabaseClient {
+let _client: SupabaseClient | null = null;
+
+export function getSupabaseServer(): SupabaseClient {
+  if (_client) return _client;
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
@@ -17,7 +22,6 @@ function createServerClient(): SupabaseClient {
     );
   }
 
-  return createClient(url, key);
+  _client = createClient(url, key);
+  return _client;
 }
-
-export const supabaseServer = createServerClient();
